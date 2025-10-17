@@ -1,0 +1,1 @@
+a porta do projeto deve ser sempre única e ser a porta padrão 8507 para o frontend e 8508 para o backend
