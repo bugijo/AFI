@@ -102,7 +102,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -157,3 +156,13 @@ ImageMagick-installer.exe
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Track placeholder files inside data/logs volumes
+!data/Videos_Para_Editar/.gitkeep
+!data/Videos_Agendados/.gitkeep
+!data/Musicas/.gitkeep
+!logs/.gitkeep
+!data/
+!data/Videos_Para_Editar/
+!data/Videos_Agendados/
+!data/Musicas/

@@ -1,58 +1,22 @@
-# AFI v3.0 - Assistente Finiti Inteligente
+# AFI Assistente - Guia Rápido
 
-## 🚀 Inicialização Rápida
-
-### Porta Padrão: 8507
-
-Este sistema foi configurado para usar **SEMPRE** a porta **8507** para evitar confusão com múltiplas portas.
-
-### Formas de Iniciar o Sistema
-
-#### 1. Método Recomendado (Windows)
+## Instalação
 ```bash
-start_afi.bat
+pip install -r requirements.txt
 ```
 
-#### 2. Script Python
-```bash
-python start_server.py
-```
+> **Pré-requisito:** tenha o [FFmpeg](https://ffmpeg.org/) instalado e disponível na variável de ambiente `PATH`.
 
-#### 3. Comando Direto
-```bash
-py -m streamlit run app.py --server.port 8507 --server.headless true
-```
+### Instalação offline
+1. Em uma máquina com internet execute `scripts/offline/build_wheelhouse.sh` (Linux/macOS) ou `scripts/offline/build_wheelhouse.ps1` (Windows) para gerar `wheels.zip` com todas as dependências.
+2. Transfira `wheels.zip` para o ambiente isolado, extraia em `./wheels` e instale com:
+   ```bash
+   pip install --no-index --find-links wheels -r requirements.txt
+   ```
+3. Caso o FFmpeg não esteja disponível no `PATH`, copie o binário para `third_party/ffmpeg/<os>/bin/ffmpeg` e ajuste `IMAGEIO_FFMPEG_EXE` no `.env`.
 
-## 📋 URLs de Acesso
-
-- **Local:** http://localhost:8507
-- **Rede:** http://192.168.1.27:8507 (substitua pelo seu IP)
-
-## 📁 Estrutura do Projeto
-
-```
-AML/
-├── app.py              # Aplicação principal Streamlit
-├── core_logic.py       # Lógica principal do sistema
-├── config.py           # Configurações (PORTA PADRÃO: 8507)
-├── start_server.py     # Script de inicialização
-├── start_afi.bat       # Arquivo batch para Windows
-├── memoria/            # Pasta de arquivos para processamento
-├── storage/            # Armazenamento do índice RAG
-└── README.md           # Este arquivo
-```
-
-## ⚙️ Configuração
-
-A porta padrão está definida no arquivo `config.py`:
-
-```python
-SERVER_CONFIG = {
-    "port": 8507,  # Porta padrão única
-    "host": "localhost",
-    "headless": True
-}
-```
+### Modo NO_DEPS (simulado)
+Quando estiver em um ambiente sem acesso à internet ou sem as bibliotecas multimídia instaladas, defina `NO_DEPS=1` no `.env`:
 
 ## 🔧 Resolução de Problemas
 
