@@ -333,8 +333,7 @@ class GuardiaoAutonomo:
             while True:
                 time.sleep(1)
         except KeyboardInterrupt:
-            print("
-[INFO] Parando o Guardiao...")
+            print("\n[INFO] Parando o Guardiao...")
             self.observer.stop()
 
         self.observer.join()
@@ -360,8 +359,7 @@ class GuardiaoAutonomo:
 
                 time.sleep(2)
         except KeyboardInterrupt:
-            print("
-[INFO] Parando o Guardiao (polling)...")
+            print("\n[INFO] Parando o Guardiao (polling)...")
         finally:
             print("[INFO] Guardiao finalizado (polling).")
 
