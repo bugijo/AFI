@@ -3,6 +3,7 @@ import time
 import os
 from pathlib import Path
 from config import SERVER_CONFIG, get_server_port, get_server_url
+from environment import load_settings
 from core_logic import verificar_conexao_ollama, carregar_memoria, processar_prompt_geral
 from streamlit_chat import message
 from streamlit_option_menu import option_menu
@@ -18,6 +19,9 @@ try:
 except ImportError:
     print("⚠️ Watchdog não disponível. Instale com: pip install watchdog")
     WATCHER_AVAILABLE = False
+
+SETTINGS = load_settings()
+NO_DEPS_MODE = SETTINGS.no_deps
 
 # =================================================================================
 # CONTROLE DE ESTADO DE INICIALIZAÇÃO - SISTEMA ROBUSTO
@@ -304,6 +308,9 @@ if not st.session_state.system_ready:
             st.stop()
 
 else:
+    if NO_DEPS_MODE:
+        st.info("Modo Simulado ativo: edicoes de video geram arquivos dummy no diretorio de saida.")
+
     # =================================================================================
     # APLICAÇÃO PRINCIPAL - SISTEMA PRONTO
     # =================================================================================
@@ -320,7 +327,10 @@ else:
     with st.sidebar:
         st.title("🏗️ AFI v3.0")
         st.markdown("**Assistente Finiti Inteligente**")
-        
+
+        if NO_DEPS_MODE:
+            st.warning("Modo Simulado ativo. Saidas sao arquivos dummy.")
+
         # Menu de navegação
         st.session_state.view = option_menu(
             menu_title=None,

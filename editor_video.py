@@ -4,52 +4,120 @@ Editor de Vídeo para Stories de Redes Sociais
 Script robusto para automatizar a edição de vídeos usando MoviePy
 """
 
+import json
 import os
 import sys
 import random
+from datetime import datetime
 from pathlib import Path
-from moviepy.video.io.VideoFileClip import VideoFileClip
-from moviepy.audio.io.AudioFileClip import AudioFileClip
-from moviepy.video.VideoClip import TextClip
-from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
-from moviepy.audio.AudioClip import concatenate_audioclips
 
-# Configurar ImageMagick para Windows
+from environment import ROOT_DIR, load_settings
+
+SETTINGS = load_settings()
+NO_DEPS_MODE = SETTINGS.no_deps
+
+MUSIC_DIR_ENV = os.getenv("AFI_MUSIC_DIR")
+if MUSIC_DIR_ENV:
+    MUSIC_DIR = Path(MUSIC_DIR_ENV)
+    if not MUSIC_DIR.is_absolute():
+        MUSIC_DIR = (ROOT_DIR / MUSIC_DIR).resolve()
+else:
+    MUSIC_DIR = (SETTINGS.input_dir.parent / "musics").resolve()
+
 try:
-    import moviepy.config as config
-    imagemagick_path = r"C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe"
-    if os.path.exists(imagemagick_path):
-        config.change_settings({"IMAGEMAGICK_BINARY": imagemagick_path})
-except Exception:
-    pass  # Continua sem ImageMagick se houver erro
+    if NO_DEPS_MODE:
+        raise ImportError("NO_DEPS ativo")
+    from moviepy.video.io.VideoFileClip import VideoFileClip
+    from moviepy.audio.io.AudioFileClip import AudioFileClip
+    from moviepy.video.VideoClip import TextClip
+    from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
+    from moviepy.audio.AudioClip import concatenate_audioclips
+    MOVIEPY_AVAILABLE = True
+    MOVIEPY_IMPORT_ERROR = None
+except Exception as exc:  # pragma: no cover - import guard
+    VideoFileClip = None  # type: ignore
+    AudioFileClip = None  # type: ignore
+    TextClip = None  # type: ignore
+    CompositeVideoClip = None  # type: ignore
+    concatenate_audioclips = None  # type: ignore
+    MOVIEPY_AVAILABLE = False
+    MOVIEPY_IMPORT_ERROR = exc
+
+if MOVIEPY_AVAILABLE:
+    try:
+        import moviepy.config as config
+        imagemagick_path = r"C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe"
+        if os.path.exists(imagemagick_path):
+            config.change_settings({"IMAGEMAGICK_BINARY": imagemagick_path})
+    except Exception:
+        pass  # Continua sem ImageMagick se houver erro
 
 def verificar_dependencias():
-    """Verifica se todas as dependências estão disponíveis"""
-    try:
-        import moviepy
-        print(f"[OK] MoviePy {moviepy.__version__} detectado")
+    """Verifica se as dependencias multimidia estao disponiveis."""
+    if NO_DEPS_MODE:
+        print("[INFO] NO_DEPS ativo: pulando verificacao de MoviePy.")
         return True
-    except ImportError:
-        print("[ERRO] MoviePy não está instalado ou configurado corretamente")
-        print("[INFO] Execute: pip install moviepy==1.0.3")
-        return False
+
+    if MOVIEPY_AVAILABLE:
+        try:
+            import moviepy  # type: ignore
+            print(f"[OK] MoviePy {moviepy.__version__} detectado")
+        except Exception:  # pragma: no cover - log informativo
+            print("[OK] MoviePy carregado, mas a versao nao pode ser identificada.")
+        return True
+
+    print("[ERRO] MoviePy nao esta instalado ou configurado corretamente.")
+    if MOVIEPY_IMPORT_ERROR:
+        print(f"[DEBUG] Motivo: {MOVIEPY_IMPORT_ERROR}")
+    print("[INFO] Execute: pip install moviepy==1.0.3")
+    return False
 
 def criar_pastas_necessarias():
-    """Cria as pastas necessárias se não existirem"""
+    """Cria as pastas necessarias se nao existirem."""
     pastas = [
-        "Videos_Para_Editar",
-        "Videos_Editados", 
-        "Videos_Agendados",
-        "Musicas",
-        "Musicas/Instrumental",
-        "Musicas/Energetica",
-        "Musicas/Relaxante"
+        SETTINGS.input_dir,
+        SETTINGS.output_dir,
+        SETTINGS.log_dir,
+        MUSIC_DIR,
+        MUSIC_DIR / "Instrumental",
+        MUSIC_DIR / "Energetica",
+        MUSIC_DIR / "Relaxante",
     ]
-    
+
     for pasta in pastas:
-        Path(pasta).mkdir(parents=True, exist_ok=True)
-    
+        pasta.mkdir(parents=True, exist_ok=True)
+
     print("[INFO] Estrutura de pastas verificada/criada")
+
+def executar_modo_simulado(destino_final: str | None = None, origem: str | None = None, musica: str | None = None, texto: str | None = None) -> bool:
+    """Gera arquivos dummy quando o modo NO_DEPS esta ativo."""
+    SETTINGS.output_dir.mkdir(parents=True, exist_ok=True)
+    dummy_mp4 = SETTINGS.output_dir / "dummy_arquivo.mp4"
+    dummy_json = SETTINGS.output_dir / "dummy_arquivo.json"
+
+    payload = {
+        "status": "simulado",
+        "gerado_em": datetime.utcnow().isoformat() + "Z",
+        "origem": origem,
+        "musica": musica,
+        "texto": texto,
+        "destino_solicitado": destino_final,
+    }
+
+    if not dummy_mp4.exists():
+        dummy_mp4.write_bytes(b"SIMULATED_MP4_CONTENT")
+    dummy_json.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+    if destino_final:
+        destino_path = Path(destino_final)
+        if not destino_path.is_absolute():
+            destino_path = (ROOT_DIR / destino_path).resolve()
+        destino_path.parent.mkdir(parents=True, exist_ok=True)
+        destino_path.write_bytes(dummy_mp4.read_bytes())
+
+    print(f"[INFO] Modo simulado ativo: arquivos dummy atualizados em {SETTINGS.output_dir}")
+    return True
+
 
 def validar_arquivo(caminho, tipo="arquivo"):
     """Valida se um arquivo existe"""
@@ -242,111 +310,119 @@ def listar_musicas(pasta_musicas="Musicas"):
     return musicas
 
 def listar_arquivos_disponiveis():
-    """Lista vídeos e músicas disponíveis nas pastas"""
-    print("\n📂 Arquivos disponíveis:")
-    
-    # Listar vídeos
-    pasta_videos = "Videos_Para_Editar"
-    if os.path.exists(pasta_videos):
-        videos = [f for f in os.listdir(pasta_videos) if f.lower().endswith(('.mp4', '.avi', '.mov', '.mkv'))]
+    """Lista videos e musicas disponiveis nas pastas configuradas."""
+    print("\n[INFO] Arquivos disponiveis:")
+
+    if SETTINGS.input_dir.exists():
+        videos = [
+            item.name
+            for item in SETTINGS.input_dir.iterdir()
+            if item.is_file() and item.suffix.lower() in ('.mp4', '.avi', '.mov', '.mkv')
+        ]
         if videos:
-            print(f"\n🎬 Vídeos em {pasta_videos}:")
-            for i, video in enumerate(videos, 1):
-                print(f"  {i}. {video}")
+            print(f"\n[INFO] Videos em {SETTINGS.input_dir}:")
+            for idx, video in enumerate(videos, 1):
+                print(f"  {idx}. {video}")
         else:
-            print(f"\n🎬 Nenhum vídeo encontrado em {pasta_videos}")
-    
-    # Listar músicas
-    pasta_musicas = "Musicas"
-    if os.path.exists(pasta_musicas):
+            print(f"\n[INFO] Nenhum video encontrado em {SETTINGS.input_dir}")
+
+    if MUSIC_DIR.exists():
         musicas = []
-        for root, dirs, files in os.walk(pasta_musicas):
-            for file in files:
-                if file.lower().endswith(('.mp3', '.wav', '.aac', '.m4a')):
-                    musicas.append(os.path.relpath(os.path.join(root, file)))
-        
+        for item in MUSIC_DIR.rglob('*'):
+            if item.is_file() and item.suffix.lower() in ('.mp3', '.wav', '.aac', '.m4a'):
+                musicas.append(item.relative_to(MUSIC_DIR).as_posix())
+
         if musicas:
-            print(f"\n🎵 Músicas em {pasta_musicas}:")
-            for i, musica in enumerate(musicas, 1):
-                print(f"  {i}. {musica}")
+            print(f"\n[INFO] Musicas em {MUSIC_DIR}:")
+            for idx, musica in enumerate(musicas, 1):
+                print(f"  {idx}. {musica}")
         else:
-            print(f"\n🎵 Nenhuma música encontrada em {pasta_musicas}")
+            print(f"\n[INFO] Nenhuma musica encontrada em {MUSIC_DIR}")
 
 def main_interativo():
-    """Modo interativo para guiar o usuário"""
-    print("🎬 Editor de Vídeo para Stories - Modo Interativo")
+    """Modo interativo para guiar o usuario."""
+    if NO_DEPS_MODE:
+        executar_modo_simulado()
+        return True
+
+    print("[INFO] Editor de Video para Stories - Modo Interativo")
     print("=" * 50)
-    
+
     listar_arquivos_disponiveis()
-    
-    print("\n📝 Digite os caminhos dos arquivos:")
-    video = input("Vídeo original: ").strip()
-    musica = input("Música de fundo: ").strip()
+
+    print("\nDigite os caminhos dos arquivos:")
+    video = input("Video original: ").strip()
+    musica = input("Musica de fundo: ").strip()
     texto = input("Texto para sobrepor: ").strip()
-    saida = input("Nome do arquivo de saída (ex: resultado.mp4): ").strip()
-    
-    if not saida.startswith("Videos_Editados/"):
-        saida = f"Videos_Editados/{saida}"
-    
-    return editar_video_story(video, musica, texto, saida, duracao_maxima=60)
+    saida = input("Nome do arquivo de saida (ex: resultado.mp4): ").strip()
+
+    if not saida:
+        saida = "resultado.mp4"
+
+    saida_path = Path(saida)
+    if not saida_path.is_absolute():
+        saida_path = SETTINGS.output_dir / saida_path
+
+    return editar_video_story(video, musica, texto, str(saida_path))
 
 if __name__ == '__main__':
-    # Verificar dependências
+    criar_pastas_necessarias()
+
+    args = sys.argv[1:]
+
+    if args and args[0] == '--info':
+        listar_arquivos_disponiveis()
+        sys.exit(0)
+
+    if NO_DEPS_MODE:
+        destino_override = args[3] if len(args) >= 4 else None
+        origem = args[0] if args else None
+        musica = args[1] if len(args) >= 2 else None
+        texto = args[2] if len(args) >= 3 else None
+        executar_modo_simulado(destino_override, origem=origem, musica=musica, texto=texto)
+        sys.exit(0)
+
     if not verificar_dependencias():
         sys.exit(1)
-    
-    # Criar estrutura de pastas
-    criar_pastas_necessarias()
-    
-    # Verificar argumentos da linha de comando
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '--teste':
-            print("[INFO] Executando modo de teste...")
-            
-            # Variáveis de teste conforme especificado
-            video_teste = "Videos_Para_Editar/teste.mp4"
-            musica_teste = "Musicas/musica.mp3"
-            texto_exemplo = "Produto Incrível da Finiti!"
-            video_final = "Videos_Editados/resultado_teste.mp4"
-            
-            print("[INFO] Edição iniciada...")
+
+    if args:
+        if args[0] == '--teste':
+            print('[INFO] Executando modo de teste...')
+            video_teste = str(SETTINGS.input_dir / 'teste.mp4')
+            musica_teste = str(MUSIC_DIR / 'musica.mp3')
+            texto_exemplo = 'Produto incrivel da Finiti!'
+            video_final = str(SETTINGS.output_dir / 'resultado_teste.mp4')
+
+            print('[INFO] Edicao iniciada...')
             sucesso = editar_video_story(video_teste, musica_teste, texto_exemplo, video_final)
-            
+
             if sucesso:
-                print("[SUCESSO] Edição finalizada!")
+                print('[SUCESSO] Edicao finalizada!')
             else:
-                print("[ERRO] Falha na edição")
-                
-        elif sys.argv[1] == '--info':
-            listar_arquivos_disponiveis()
-            
-        elif len(sys.argv) == 5:
-            # Modo direto: python editor_video.py video musica texto saida
-            video_path = sys.argv[1]
-            musica_path = sys.argv[2] 
-            texto_overlay = sys.argv[3]
-            saida_path = sys.argv[4]
-            
-            print(f"[INFO] Processando: {video_path}")
-            print(f"[INFO] Música: {musica_path}")
-            print(f"[INFO] Texto: {texto_overlay}")
-            print(f"[INFO] Saída: {saida_path}")
-            
+                print('[ERRO] Falha na edicao')
+
+        elif len(args) == 4:
+            video_path, musica_path, texto_overlay, saida_path = args
+
+            print(f'[INFO] Processando: {video_path}')
+            print(f'[INFO] Musica: {musica_path}')
+            print(f'[INFO] Texto: {texto_overlay}')
+            print(f'[INFO] Saida: {saida_path}')
+
             sucesso = editar_video_story(video_path, musica_path, texto_overlay, saida_path)
-            
+
             if sucesso:
-                print(f"[SUCESSO] Vídeo editado salvo em: {saida_path}")
+                print(f'[SUCESSO] Video editado salvo em: {saida_path}')
                 sys.exit(0)
             else:
-                print("[ERRO] Falha na edição do vídeo")
+                print('[ERRO] Falha na edicao do video')
                 sys.exit(1)
-            
+
         else:
-            print("Uso: python editor_video.py [--teste|--info|video musica texto saida]")
-            print("  --teste: Executa teste com arquivos padrão")
-            print("  --info: Lista arquivos disponíveis")
-            print("  video musica texto saida: Edição direta")
-            print("  (sem argumentos): Modo interativo")
+            print('Uso: python editor_video.py [--teste|--info|video musica texto saida]')
+            print('  --teste: Executa teste com arquivos padrao')
+            print('  --info: Lista arquivos disponiveis')
+            print('  video musica texto saida: Edicao direta')
+            print('  (sem argumentos): Modo interativo')
     else:
-        # Modo interativo padrão
         main_interativo()

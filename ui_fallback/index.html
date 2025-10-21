@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>AFI UI Fallback</title>
+  <style>
+    :root {
+      --bg: #0b061a;
+      --card: #15102b;
+      --accent: #7a5cff;
+      --accent-2: #00e5ff;
+      --text: #f4f4ff;
+      --muted: #b4b4d4;
+      --success: #2de186;
+      --warning: #ff8b5c;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top left, rgba(122, 92, 255, 0.2), transparent 45%),
+                  radial-gradient(circle at bottom right, rgba(0, 229, 255, 0.2), transparent 40%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px 64px;
+    }
+    .app {
+      width: min(1100px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    header {
+      text-align: center;
+      padding: 24px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(122, 92, 255, 0.25), rgba(0, 229, 255, 0.15));
+      border: 1px solid rgba(122, 92, 255, 0.25);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 20px 22px;
+      border: 1px solid rgba(122, 92, 255, 0.12);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      background: linear-gradient(135deg, rgba(122,92,255,0.35), rgba(0,229,255,0.12));
+      mask: linear-gradient(#fff, transparent);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .status-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(122, 92, 255, 0.08);
+      border: 1px solid rgba(122, 92, 255, 0.25);
+      font-weight: 500;
+    }
+    .status-item span {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .badge.ok {
+      background: rgba(45, 225, 134, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(45, 225, 134, 0.4);
+    }
+    .badge.warn {
+      background: rgba(255, 139, 92, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(255, 139, 92, 0.4);
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    button.neon {
+      appearance: none;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 25px rgba(122, 92, 255, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button.neon:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 18px 30px rgba(122, 92, 255, 0.45);
+    }
+    button.neon:active {
+      transform: translateY(1px);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 0.92rem;
+    }
+    thead th {
+      text-align: left;
+      padding: 12px 10px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    tbody td {
+      padding: 12px 10px;
+      border-top: 1px solid rgba(122, 92, 255, 0.15);
+    }
+    tbody tr:hover {
+      background: rgba(122, 92, 255, 0.08);
+    }
+    .log {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 12px;
+      max-height: 280px;
+      overflow: auto;
+      font-family: "Fira Code", "Consolas", monospace;
+      font-size: 0.85rem;
+      color: #d3d3f5;
+    }
+    #toast {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      min-width: 220px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(0, 229, 255, 0.15);
+      border: 1px solid rgba(0, 229, 255, 0.6);
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 1000;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 720px) {
+      body {
+        padding: 24px 12px 48px;
+      }
+      header h1 {
+        font-size: 1.6rem;
+      }
+      .card {
+        padding: 18px;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+      thead {
+        display: none;
+      }
+      tbody td {
+        display: block;
+        padding: 10px 0;
+      }
+      tbody tr {
+        padding: 12px 0;
+      }
+      tbody td::before {
+        content: attr(data-label);
+        display: block;
+        color: var(--muted);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>AFI Fallback Console</h1>
+      <p>Modo seguro para ambientes sem Streamlit ou dependencias graficas.</p>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Status</h2>
+        <div class="status-grid" id="status-grid"></div>
+      </article>
+      <article class="card actions">
+        <h2>Acoes</h2>
+        <button class="neon" id="generate-dummy">Gerar Dummy</button>
+        <div id="last-action" class="status-item">
+          <span>Ultima acao</span>
+          <strong id="last-action-time">--</strong>
+        </div>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Arquivos de Saida</h2>
+      <table>
+        <thead>
+          <tr>
+            <th data-key="name">Arquivo</th>
+            <th data-key="size">Tamanho</th>
+            <th data-key="modified">Modificacao</th>
+          </tr>
+        </thead>
+        <tbody id="output-body"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Log Recente</h2>
+      <div class="log" id="log-content">Carregando logs...</div>
+    </section>
+  </div>
+  <div id="toast"></div>
+
+  <script>
+    const state = {
+      sortKey: 'modified',
+      sortAsc: false,
+      files: [],
+    };
+
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 B';
+      const units = ['B', 'KB', 'MB', 'GB'];
+      const index = Math.floor(Math.log(bytes) / Math.log(1024));
+      const value = bytes / Math.pow(1024, index);
+      return `${value.toFixed(value < 10 ? 1 : 0)} ${units[index]}`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function renderStatus(data) {
+      const grid = document.getElementById('status-grid');
+      grid.innerHTML = '';
+      const items = [
+        ['Modo Simulado', data.no_deps_mode ? 'Ativo' : 'Desativado', data.no_deps_mode ? 'warn' : 'ok'],
+        ['Diretorio de Entrada', data.input_dir, ''],
+        ['Diretorio de Saida', data.output_dir, ''],
+        ['Diretorio de Logs', data.log_dir, ''],
+        ['Arquivos Gerados', data.output_count, 'ok'],
+      ];
+
+      items.forEach(([label, value, badge]) => {
+        const row = document.createElement('div');
+        row.className = 'status-item';
+
+        const span = document.createElement('span');
+        span.textContent = label;
+
+        const strong = document.createElement('strong');
+        if (badge) {
+          strong.className = `badge ${badge}`;
+          strong.textContent = value;
+        } else {
+          strong.textContent = value;
+        }
+
+        row.appendChild(span);
+        row.appendChild(strong);
+        grid.appendChild(row);
+      });
+    }
+
+    function renderFiles() {
+      const body = document.getElementById('output-body');
+      body.innerHTML = '';
+
+      const files = [...state.files].sort((a, b) => {
+        const key = state.sortKey;
+        if (key === 'size') {
+          return state.sortAsc ? a.size - b.size : b.size - a.size;
+        }
+        if (key === 'modified') {
+          return state.sortAsc
+            ? new Date(a.modified) - new Date(b.modified)
+            : new Date(b.modified) - new Date(a.modified);
+        }
+        return state.sortAsc
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      });
+
+      files.forEach((file) => {
+        const row = document.createElement('tr');
+
+        const nameCell = document.createElement('td');
+        nameCell.dataset.label = 'Arquivo';
+        nameCell.textContent = file.name;
+
+        const sizeCell = document.createElement('td');
+        sizeCell.dataset.label = 'Tamanho';
+        sizeCell.textContent = formatBytes(file.size);
+
+        const modCell = document.createElement('td');
+        modCell.dataset.label = 'Modificacao';
+        modCell.textContent = new Date(file.modified).toLocaleString();
+
+        row.appendChild(nameCell);
+        row.appendChild(sizeCell);
+        row.appendChild(modCell);
+        body.appendChild(row);
+      });
+    }
+
+    function renderLog(content) {
+      const log = document.getElementById('log-content');
+      log.textContent = content || 'Nenhum log encontrado.';
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function refreshStatus() {
+      const response = await fetch('/api/status', { cache: 'no-store' });
+      const data = await response.json();
+      renderStatus(data);
+    }
+
+    async function refreshOutput() {
+      const response = await fetch('/api/output', { cache: 'no-store' });
+      const data = await response.json();
+      state.files = data.files || [];
+      renderFiles();
+    }
+
+    async function refreshLog() {
+      const response = await fetch('/api/log', { cache: 'no-store' });
+      const data = await response.json();
+      renderLog(data.content);
+    }
+
+    async function refreshAll() {
+      try {
+        await Promise.all([refreshStatus(), refreshOutput(), refreshLog()]);
+      } catch (error) {
+        console.error('Erro na atualizacao', error);
+        showToast('Falha ao atualizar dados');
+      }
+    }
+
+    async function generateDummy() {
+      try {
+        const response = await fetch('/api/generate_dummy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!response.ok) throw new Error('Request failed');
+        const now = new Date().toLocaleTimeString();
+        document.getElementById('last-action-time').textContent = now;
+        showToast('Dummy gerado com sucesso');
+        await refreshAll();
+      } catch (error) {
+        console.error(error);
+        showToast('Erro ao gerar dummy');
+      }
+    }
+
+    document.getElementById('generate-dummy').addEventListener('click', generateDummy);
+
+    document.querySelectorAll('th[data-key]').forEach((th) => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.key;
+        if (state.sortKey === key) {
+          state.sortAsc = !state.sortAsc;
+        } else {
+          state.sortKey = key;
+          state.sortAsc = key === 'name';
+        }
+        renderFiles();
+      });
+    });
+
+    refreshAll();
+    setInterval(refreshAll, 2000);
+  </script>
+</body>
+</html>

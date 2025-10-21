@@ -43,8 +43,23 @@ import random
 import subprocess
 from pathlib import Path
 from datetime import datetime
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+
+from environment import ROOT_DIR, load_settings
+
+try:
+    from watchdog.observers import Observer
+    from watchdog.events import FileSystemEventHandler
+except ImportError:
+    Observer = None
+
+    class FileSystemEventHandler:  # type: ignore
+        """Fallback handler when watchdog is unavailable."""
+
+        pass
+
+
+AFI_SETTINGS = load_settings()
+NO_DEPS_MODE = AFI_SETTINGS.no_deps
 
 # Importar função de IA para gerar frases de marketing
 try:
@@ -249,22 +264,32 @@ class GuardiaoAutonomo:
     """Classe principal do Guardião Autônomo"""
     
     def __init__(self):
-        self.pasta_entrada = Path("Videos_Para_Editar")
-        self.pasta_musicas = Path("Musicas")
-        self.pasta_saida = Path("Videos_Editados")
+        self.settings = AFI_SETTINGS
+        self.pasta_entrada = self.settings.input_dir
+
+        music_dir_env = os.getenv("AFI_MUSIC_DIR")
+        if music_dir_env:
+            musica_path = Path(music_dir_env)
+            if not musica_path.is_absolute():
+                musica_path = (ROOT_DIR / musica_path).resolve()
+        else:
+            musica_path = (self.pasta_entrada.parent / "musics").resolve()
+
+        self.pasta_musicas = musica_path
+        self.pasta_saida = self.settings.output_dir
         self.observer = None
         
     def verificar_estrutura(self):
-        """Verifica e cria a estrutura de pastas necessária"""
-        print("📁 Verificando estrutura de pastas...")
-        
-        for pasta in [self.pasta_entrada, self.pasta_musicas, self.pasta_saida]:
+        """Garantia basica das pastas do Guardiao."""
+        print("[INFO] Verificando estrutura de pastas do Guardiao...")
+
+        for pasta in (self.pasta_entrada, self.pasta_musicas, self.pasta_saida):
             if not pasta.exists():
                 pasta.mkdir(parents=True, exist_ok=True)
-                print(f"✅ Pasta criada: {pasta}")
+                print(f"[CRIADA] {pasta}")
             else:
-                print(f"✅ Pasta encontrada: {pasta}")
-    
+                print(f"[OK] {pasta}")
+
     def verificar_dependencias(self):
         """Verifica se o editor_video.py existe"""
         editor_path = Path("editor_video.py")
@@ -277,72 +302,90 @@ class GuardiaoAutonomo:
         return True
     
     def iniciar_monitoramento(self):
-        """Inicia o monitoramento da pasta de entrada"""
-        print("🤖 GUARDIÃO AUTÔNOMO - INICIANDO...")
+        """Inicia o monitoramento da pasta de entrada."""
+        print("=== Guardiao Autonomo - iniciando ===")
         print("=" * 50)
-        
-        # Verificações iniciais
+
         if not self.verificar_dependencias():
             return False
-            
+
         self.verificar_estrutura()
-        
-        # Configura o manipulador de eventos
+
         event_handler = GuardiaoVideoHandler(self.pasta_musicas, self.pasta_saida)
-        
-        # Configura o observador
-        self.observer = Observer()
-        self.observer.schedule(
-            event_handler,
-            str(self.pasta_entrada),
-            recursive=False
-        )
-        
-        # Inicia o monitoramento
-        self.observer.start()
-        
-        print(f"👁️ MONITORANDO: {self.pasta_entrada.absolute()}")
-        print("🎵 Músicas disponíveis:")
+
+        print(f"[INFO] Monitorando: {self.pasta_entrada}")
+        print("[INFO] Musicas disponiveis:")
         self.listar_musicas()
         print("=" * 50)
-        print("🚀 GUARDIÃO ATIVO! Aguardando novos vídeos...")
-        print("💡 Para parar, pressione Ctrl+C")
+        print("[INFO] Guardiao ativo. Pressione Ctrl+C para sair.")
         print("=" * 50)
-        
+
+        if NO_DEPS_MODE or Observer is None:
+            print("[INFO] NO_DEPS ativo: monitoramento por polling a cada 2 segundos.")
+            self._monitorar_polling(event_handler)
+            return True
+
+        self.observer = Observer()
+        self.observer.schedule(event_handler, str(self.pasta_entrada), recursive=False)
+        self.observer.start()
+
         try:
             while True:
                 time.sleep(1)
         except KeyboardInterrupt:
-            print("\n🛑 Parando o Guardião...")
+            print("
+[INFO] Parando o Guardiao...")
             self.observer.stop()
-            
+
         self.observer.join()
-        print("✅ Guardião finalizado!")
+        print("[INFO] Guardiao finalizado!")
         return True
-    
+
+    def _monitorar_polling(self, event_handler):
+        """Fallback de monitoramento por polling."""
+        processados = set()
+
+        try:
+            while True:
+                for arquivo in self.pasta_entrada.iterdir():
+                    if not arquivo.is_file():
+                        continue
+                    if arquivo.suffix.lower() not in event_handler.extensoes_video:
+                        continue
+                    if arquivo.name in processados:
+                        continue
+
+                    event_handler.processar_novo_video(arquivo)
+                    processados.add(arquivo.name)
+
+                time.sleep(2)
+        except KeyboardInterrupt:
+            print("
+[INFO] Parando o Guardiao (polling)...")
+        finally:
+            print("[INFO] Guardiao finalizado (polling).")
+
     def listar_musicas(self):
-        """Lista as músicas disponíveis"""
+        """Lista as musicas disponiveis."""
         extensoes_audio = {'.mp3', '.wav', '.aac', '.m4a', '.ogg'}
         count = 0
-        
-        # Músicas na pasta principal
+
         for arquivo in self.pasta_musicas.iterdir():
             if arquivo.is_file() and arquivo.suffix.lower() in extensoes_audio:
-                print(f"   🎵 {arquivo.name}")
+                print(f"   - {arquivo.name}")
                 count += 1
-        
-        # Músicas nas subpastas
+
         for subpasta in self.pasta_musicas.iterdir():
             if subpasta.is_dir():
                 for arquivo in subpasta.iterdir():
                     if arquivo.is_file() and arquivo.suffix.lower() in extensoes_audio:
-                        print(f"   🎵 {subpasta.name}/{arquivo.name}")
+                        print(f"   - {subpasta.name}/{arquivo.name}")
                         count += 1
-        
+
         if count == 0:
-            print("   ⚠️ Nenhuma música encontrada!")
+            print("   (nenhuma musica encontrada)")
         else:
-            print(f"   📊 Total: {count} música(s)")
+            print(f"   Total: {count} arquivo(s) de audio")
 
 def main():
     """Função principal"""
