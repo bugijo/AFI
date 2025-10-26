@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sintaxe Digital - Serviços</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#0A0F1A] text-gray-200">
+  <div class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 opacity-60">
+      <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(51,255,153,0.08)" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#0A0F1A]/95 backdrop-blur border-b border-white/5">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <a href="#" class="text-xl font-semibold text-white">Sintaxe Digital</a>
+        <div class="hidden items-center space-x-8 text-sm font-medium md:flex">
+          <a href="#home" class="hover:text-white transition">Home</a>
+          <a href="#sobre" class="hover:text-white transition">Sobre Nós</a>
+          <a href="#marketing" class="hover:text-white transition">Marketing Digital</a>
+          <a href="#devia" class="hover:text-white transition">Dev &amp; IA</a>
+          <a href="#contato" class="hover:text-white transition">Contato</a>
+        </div>
+        <a href="#contato" class="hidden rounded-full border border-[#FF6B00] px-4 py-2 text-sm font-semibold text-[#FF6B00] transition hover:bg-[#FF6B00]/10 md:inline-flex">Briefing Rápido</a>
+        <button class="inline-flex items-center justify-center rounded border border-white/10 p-2 text-gray-200 md:hidden">
+          <span class="sr-only">Abrir menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Serviços -->
+      <section id="home" class="relative mx-auto flex max-w-6xl flex-col justify-center gap-6 px-6 py-24">
+        <div class="max-w-3xl space-y-6">
+          <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-200">Mapa de Serviços</span>
+          <h1 class="text-4xl font-bold text-white sm:text-5xl">Nossas Frentes de Atuação.</h1>
+          <h2 class="text-xl font-medium text-gray-300 sm:text-2xl">Especialistas em Marketing e Tecnologia, trabalhando de forma integrada.</h2>
+          <p class="text-base text-gray-400 sm:text-lg">Conectamos estratégias de crescimento com engenharia digital para gerar performance e escala. Escolha o caminho ideal para o seu próximo salto.</p>
+        </div>
+      </section>
+
+      <!-- Departamentos -->
+      <section id="departamentos" class="mx-auto max-w-6xl px-6 pb-24">
+        <div class="grid gap-8 lg:grid-cols-2">
+          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur transition hover:border-[#33FF99]/40">
+            <div class="absolute inset-x-0 top-0 h-2 bg-[#33FF99]"></div>
+            <div class="flex items-start justify-between gap-6">
+              <div class="space-y-4">
+                <span class="inline-flex items-center rounded-full bg-[#33FF99]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#33FF99]">Growth Lab</span>
+                <h3 class="text-2xl font-semibold text-[#33FF99]">Marketing Digital</h3>
+                <p class="text-sm text-gray-300">Atraia, converta e retenha clientes com estratégias de growth focadas em performance e dados.</p>
+              </div>
+              <div class="hidden rounded-full bg-[#33FF99]/15 p-4 text-[#33FF99] sm:inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v7.5h7.5V3H3zm10.5 0V6H21M13.5 10.5H21V21h-7.5v-2.25M10.5 13.5H3V21h7.5v-7.5zm0 0L21 3" />
+                </svg>
+              </div>
+            </div>
+            <ul class="mt-8 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#33FF99]"></span>
+                Planejamento orientado a dados
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#33FF99]"></span>
+                Operação de tráfego multicanal
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#33FF99]"></span>
+                Conteúdo e SEO integrado
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#33FF99]"></span>
+                Automação e CRM inteligentes
+              </li>
+            </ul>
+            <a href="marketing.html" class="mt-10 inline-flex items-center justify-center rounded-full bg-[#33FF99] px-6 py-3 text-sm font-semibold text-black shadow-lg shadow-[#33FF99]/30 transition hover:bg-[#33FF99]/90">Ver Soluções de Marketing</a>
+          </article>
+
+          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur transition hover:border-[#FF6B00]/40">
+            <div class="absolute inset-x-0 top-0 h-2 bg-[#FF6B00]"></div>
+            <div class="flex items-start justify-between gap-6">
+              <div class="space-y-4">
+                <span class="inline-flex items-center rounded-full bg-[#FF6B00]/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#FF6B00]">Tech Lab</span>
+                <h3 class="text-2xl font-semibold text-[#FF6B00]">Desenvolvimento &amp; IA</h3>
+                <p class="text-sm text-gray-300">Construa a tecnologia, automações e plataformas que dão à sua empresa uma vantagem competitiva.</p>
+              </div>
+              <div class="hidden rounded-full bg-[#FF6B00]/15 p-4 text-[#FF6B00] sm:inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25m0 13.5V21m10.5 0v-2.25m0-13.5V3M3 6.75h2.25m13.5 0H21m0 10.5h-2.25M3 17.25h2.25M7.5 7.5h9v9h-9v-9z" />
+                </svg>
+              </div>
+            </div>
+            <ul class="mt-8 grid gap-3 text-sm text-gray-400 sm:grid-cols-2">
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#FF6B00]"></span>
+                Produtos digitais escaláveis
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#FF6B00]"></span>
+                Automação e IA aplicada
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#FF6B00]"></span>
+                Integrações e APIs robustas
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#FF6B00]"></span>
+                Suporte e evolução contínua
+              </li>
+            </ul>
+            <a href="dev-ia.html" class="mt-10 inline-flex items-center justify-center rounded-full bg-[#FF6B00] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#FF6B00]/30 transition hover:bg-[#FF6B00]/80">Ver Soluções de Tech</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-[#05070E]">
+      <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <a href="#" class="text-xl font-semibold text-white">Sintaxe Digital</a>
+          <p class="mt-3 text-sm text-gray-400">Programamos jornadas digitais que conectam, convertem e escalam.</p>
+          <div class="mt-6 flex space-x-3 text-gray-400">
+            <a href="#" aria-label="LinkedIn" class="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5A2.49 2.49 0 010 3.5C0 2.12 1.11 1 2.5 1S5 2.12 5 3.5zM.22 8.98h4.56V24H.22zM8.45 8.98h4.37v2.05h.06c.61-1.15 2.1-2.36 4.33-2.36 4.63 0 5.49 3.05 5.49 7.02V24h-4.56v-6.72c0-1.6-.03-3.66-2.23-3.66-2.23 0-2.57 1.74-2.57 3.54V24H8.45z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21.543 7.104a2.508 2.508 0 00-1.767-1.77C18.274 5 12 5 12 5s-6.274 0-7.776.334a2.508 2.508 0 00-1.767 1.77A26.373 26.373 0 002 11.999a26.373 26.373 0 00.457 4.896 2.508 2.508 0 001.767 1.77C5.726 19 12 19 12 19s6.274 0 7.776-.334a2.508 2.508 0 001.767-1.77A26.373 26.373 0 0022 12a26.373 26.373 0 00-.457-4.896zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-300">Links rápidos</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li><a class="hover:text-white" href="#home">Home</a></li>
+            <li><a class="hover:text-white" href="#sobre">Sobre Nós</a></li>
+            <li><a class="hover:text-white" href="#marketing">Marketing Digital</a></li>
+            <li><a class="hover:text-white" href="#devia">Dev &amp; IA</a></li>
+            <li><a class="hover:text-white" href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-300">Departamentos</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li>Marketing Digital</li>
+            <li>Performance &amp; Growth</li>
+            <li>Desenvolvimento Web</li>
+            <li>Inteligência Artificial</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-300">Contato</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li>Email: <a class="hover:text-white" href="mailto:contato@sintaxedigital.com">contato@sintaxedigital.com</a></li>
+            <li>WhatsApp: <a class="hover:text-white" href="https://wa.me/5511999999999">+55 11 99999-9999</a></li>
+            <li>São Paulo · Atendimento Global</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 py-6 text-center text-xs text-gray-500">
+        © <span id="ano"></span> Sintaxe Digital. Todos os direitos reservados.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
