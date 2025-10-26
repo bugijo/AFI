@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sintaxe Digital - Sobre Nós</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#0A0F1A] text-gray-200">
+  <div class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 opacity-40">
+      <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="sobre-grid" width="36" height="36" patternUnits="userSpaceOnUse">
+            <path d="M 36 0 L 0 0 0 36" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#sobre-grid)" />
+      </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#0A0F1A]/95 backdrop-blur border-b border-white/5">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <a href="index.html" class="text-xl font-semibold text-white">Sintaxe Digital</a>
+        <div class="hidden items-center space-x-8 text-sm font-medium md:flex">
+          <a href="index.html" class="hover:text-white transition">Home</a>
+          <a href="sobre.html" class="hover:text-white transition">Sobre Nós</a>
+          <a href="marketing.html" class="hover:text-white transition">Marketing Digital</a>
+          <a href="dev-ia.html" class="hover:text-white transition">Dev &amp; IA</a>
+          <a href="contato.html" class="hover:text-white transition">Contato</a>
+        </div>
+        <a href="contato.html" class="hidden rounded-full border border-[#FF6B00] px-4 py-2 text-sm font-semibold text-[#FF6B00] transition hover:bg-[#FF6B00]/10 md:inline-flex">Briefing Rápido</a>
+        <button class="inline-flex items-center justify-center rounded border border-white/10 p-2 text-gray-200 md:hidden">
+          <span class="sr-only">Abrir menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Sobre -->
+      <section id="home" class="relative mx-auto flex max-w-6xl flex-col justify-center px-6 py-24">
+        <div class="max-w-3xl space-y-6">
+          <h1 class="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">Nós somos a Sintaxe Digital.</h1>
+          <h2 class="text-xl font-medium text-gray-300 sm:text-2xl">A agência que enxerga seu negócio como um ecossistema completo.</h2>
+          <p class="text-base text-gray-300 sm:text-lg">
+            Não somos apenas executores. Somos arquitetos de soluções digitais. Nossa filosofia é baseada na 'sintaxe': a ordem correta das peças para gerar o resultado máximo. Integramos Marketing, Desenvolvimento e IA para construir um sistema coeso que programa o seu sucesso.
+          </p>
+        </div>
+      </section>
+
+      <!-- Filosofia -->
+      <section id="sobre" class="bg-white/5 py-20">
+        <div class="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2 lg:items-center">
+          <div class="space-y-5">
+            <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-200">Manifesto</span>
+            <h3 class="text-3xl font-semibold text-white sm:text-4xl">A Abordagem do Arquiteto</h3>
+            <div class="space-y-4 text-gray-300">
+              <h4 class="text-xl font-semibold text-white">Precisão em cada linha.</h4>
+              <p>A "Sintaxe" é nossa regra. No código, na estratégia de marketing e na análise de dados. Acreditamos que o sucesso digital não é um acidente, mas um projeto de engenharia. Mapeamos, planejamos e executamos com um único foco: performance sustentável.</p>
+            </div>
+          </div>
+          <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0A0F1A] p-12">
+            <div class="absolute -top-16 -left-10 h-32 w-32 rounded-full bg-[#FF6B00]/20 blur-3xl"></div>
+            <div class="absolute -bottom-16 -right-10 h-40 w-40 rounded-full bg-[#33FF99]/10 blur-3xl"></div>
+            <div class="relative flex flex-col gap-6">
+              <div class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg font-semibold text-white">01</span>
+                <p class="text-sm text-gray-300">Blueprint digital: desenhamos fluxos, integrações e jornadas antes da primeira linha de código.</p>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg font-semibold text-white">02</span>
+                <p class="text-sm text-gray-300">Prototipagem rápida: validamos hipóteses com dados e feedbacks reais.</p>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg font-semibold text-white">03</span>
+                <p class="text-sm text-gray-300">Engenharia contínua: mantemos o ecossistema vivo com otimizações e inovação constante.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Valores -->
+      <section id="marketing" class="mx-auto max-w-6xl px-6 py-20">
+        <div class="mb-12 max-w-3xl">
+          <span class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-300">Essência</span>
+          <h2 class="mt-4 text-3xl font-semibold text-white sm:text-4xl">Nossos Pilares</h2>
+          <p class="mt-4 text-gray-400">Construímos relações de longo prazo com base em integração, performance e inovação aplicada.</p>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <div class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur">
+            <div class="mb-5 inline-flex rounded-full bg-white/10 p-3 text-gray-200">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h-3a1.5 1.5 0 00-1.5 1.5v9a1.5 1.5 0 001.5 1.5h3m7.5-12h3a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5h-3m-7.5 0h7.5m-7.5-12V5.25a2.25 2.25 0 012.25-2.25h3a2.25 2.25 0 012.25 2.25V6.75m-7.5 0h7.5" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white">Integração (Marketing + Tech)</h3>
+            <p class="mt-3 text-sm text-gray-400">Times multidisciplinares trabalhando como um único organismo orientado a resultados.</p>
+          </div>
+          <div class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur">
+            <div class="mb-5 inline-flex rounded-full bg-white/10 p-3 text-gray-200">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.5l6.75-6.75L13.5 10.5 21 3" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 3v6h-6" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white">Performance (Foco em ROI)</h3>
+            <p class="mt-3 text-sm text-gray-400">Metas claras, métricas transparentes e decisões guiadas por dados do seu negócio.</p>
+          </div>
+          <div class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur">
+            <div class="mb-5 inline-flex rounded-full bg-white/10 p-3 text-gray-200">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5V9m0 0l3 3m-3-3l-3 3m3-8.25a7.5 7.5 0 107.5 7.5" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white">Inovação (IA Aplicada)</h3>
+            <p class="mt-3 text-sm text-gray-400">Tecnologias emergentes incorporadas à rotina para acelerar respostas e personalização.</p>
+          </div>
+        </div>
+      </section>
+
+      <div id="devia" class="sr-only" aria-hidden="true"></div>
+
+      <!-- CTA Final -->
+      <section id="contato" class="mx-auto max-w-6xl px-6 pb-24">
+        <div class="rounded-3xl border border-[#FF6B00]/30 bg-gradient-to-br from-[#FF6B00]/10 via-[#0A0F1A] to-[#FF6B00]/10 p-12 text-center shadow-lg shadow-[#FF6B00]/20">
+          <h2 class="text-3xl font-semibold text-white sm:text-4xl">Vamos desenhar seu projeto?</h2>
+          <p class="mt-4 text-gray-300">Veja como nossa abordagem integrada pode ser aplicada ao seu desafio específico.</p>
+          <a href="mailto:contato@sintaxedigital.com" class="mt-8 inline-flex items-center justify-center rounded-full bg-[#FF6B00] px-8 py-3 text-base font-semibold text-white transition hover:bg-[#FF6B00]/80">Iniciar Projeto</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-[#05070E]">
+      <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <a href="index.html" class="text-xl font-semibold text-white">Sintaxe Digital</a>
+          <p class="mt-3 text-sm text-gray-400">Programamos jornadas digitais que conectam, convertem e escalam.</p>
+          <div class="mt-6 flex space-x-3 text-gray-400">
+            <a href="#" aria-label="LinkedIn" class="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5A2.49 2.49 0 010 3.5C0 2.12 1.11 1 2.5 1S5 2.12 5 3.5zM.22 8.98h4.56V24H.22zM8.45 8.98h4.37v2.05h.06c.61-1.15 2.1-2.36 4.33-2.36 4.63 0 5.49 3.05 5.49 7.02V24h-4.56v-6.72c0-1.6-.03-3.66-2.23-3.66-2.23 0-2.57 1.74-2.57 3.54V24H8.45z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm6.5-.75a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21.543 7.104a2.508 2.508 0 00-1.767-1.77C18.274 5 12 5 12 5s-6.274 0-7.776.334a2.508 2.508 0 00-1.767 1.77A26.373 26.373 0 002 11.999a26.373 26.373 0 00.457 4.896 2.508 2.508 0 001.767 1.77C5.726 19 12 19 12 19s6.274 0 7.776-.334a2.508 2.508 0 001.767-1.77A26.373 26.373 0 0022 12a26.373 26.373 0 00-.457-4.896zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-300">Links rápidos</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li><a class="hover:text-white" href="index.html">Home</a></li>
+            <li><a class="hover:text-white" href="sobre.html">Sobre Nós</a></li>
+            <li><a class="hover:text-white" href="marketing.html">Marketing Digital</a></li>
+            <li><a class="hover:text-white" href="dev-ia.html">Dev &amp; IA</a></li>
+            <li><a class="hover:text-white" href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-300">Departamentos</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li>Marketing Digital</li>
+            <li>Performance &amp; Growth</li>
+            <li>Desenvolvimento Web</li>
+            <li>Inteligência Artificial</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-300">Contato</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li>Email: <a class="hover:text-white" href="mailto:contato@sintaxedigital.com">contato@sintaxedigital.com</a></li>
+            <li>WhatsApp: <a class="hover:text-white" href="https://wa.me/5511999999999">+55 11 99999-9999</a></li>
+            <li>São Paulo · Atendimento Global</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 py-6 text-center text-xs text-gray-500">
+        © <span id="ano"></span> Sintaxe Digital. Todos os direitos reservados.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

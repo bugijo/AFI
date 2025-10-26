@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sintaxe Digital - Contato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#0A0F1A] text-gray-200">
+  <div class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 opacity-60">
+      <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(51,255,153,0.08)" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#0A0F1A]/95 backdrop-blur border-b border-white/5">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <a href="index.html" class="text-xl font-semibold text-white">Sintaxe Digital</a>
+        <div class="hidden items-center space-x-8 text-sm font-medium md:flex">
+          <a href="index.html" class="hover:text-white transition">Home</a>
+          <a href="sobre.html" class="hover:text-white transition">Sobre Nós</a>
+          <a href="marketing.html" class="hover:text-white transition">Marketing Digital</a>
+          <a href="dev-ia.html" class="hover:text-white transition">Dev &amp; IA</a>
+          <a href="contato.html" class="hover:text-white transition">Contato</a>
+        </div>
+        <a href="contato.html" class="hidden rounded-full border border-[#FF6B00] px-4 py-2 text-sm font-semibold text-[#FF6B00] transition hover:bg-[#FF6B00]/10 md:inline-flex">Briefing Rápido</a>
+        <button class="inline-flex items-center justify-center rounded border border-white/10 p-2 text-gray-200 md:hidden">
+          <span class="sr-only">Abrir menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main id="contato">
+      <!-- Hero Contato -->
+      <section class="relative mx-auto flex max-w-6xl flex-col gap-6 px-6 py-24">
+        <div class="max-w-3xl space-y-6">
+          <h1 class="text-4xl font-bold text-white sm:text-5xl">Vamos conversar.</h1>
+          <h2 class="text-xl text-gray-300 sm:text-2xl">Seja para um projeto completo ou para tirar uma dúvida, estamos prontos para ouvir seu desafio.</h2>
+        </div>
+      </section>
+
+      <!-- Seção de Conversão -->
+      <section class="mx-auto max-w-6xl px-6 pb-24">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <!-- Formulário -->
+          <div class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur">
+            <h3 class="text-2xl font-semibold text-white">Envie sua mensagem</h3>
+            <p class="mt-2 text-sm text-gray-400">Conte um pouco sobre seu projeto e nosso time retornará rapidamente.</p>
+            <form class="mt-8 space-y-6">
+              <div>
+                <label for="nome" class="mb-2 block text-sm font-medium text-gray-300">Nome Completo</label>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome" class="w-full rounded-xl border border-white/10 bg-[#0A0F1A] px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-[#FF6B00] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]/40" />
+              </div>
+              <div>
+                <label for="email" class="mb-2 block text-sm font-medium text-gray-300">Seu melhor E-mail</label>
+                <input id="email" name="email" type="email" placeholder="nome@empresa.com" class="w-full rounded-xl border border-white/10 bg-[#0A0F1A] px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-[#FF6B00] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]/40" />
+              </div>
+              <div>
+                <label for="telefone" class="mb-2 block text-sm font-medium text-gray-300">Telefone/WhatsApp</label>
+                <input id="telefone" name="telefone" type="tel" placeholder="(11) 99999-9999" class="w-full rounded-xl border border-white/10 bg-[#0A0F1A] px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-[#FF6B00] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]/40" />
+              </div>
+              <div>
+                <label for="interesse" class="mb-2 block text-sm font-medium text-gray-300">Qual área de interesse?</label>
+                <select id="interesse" name="interesse" class="w-full rounded-xl border border-white/10 bg-[#0A0F1A] px-4 py-3 text-sm text-white focus:border-[#FF6B00] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]/40">
+                  <option class="bg-[#0A0F1A] text-gray-900" value="marketing">Marketing Digital</option>
+                  <option class="bg-[#0A0F1A] text-gray-900" value="devia">Desenvolvimento &amp; IA</option>
+                  <option class="bg-[#0A0F1A] text-gray-900" value="ambos">Ambos / Outro Assunto</option>
+                </select>
+              </div>
+              <div>
+                <label for="mensagem" class="mb-2 block text-sm font-medium text-gray-300">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" rows="4" placeholder="Compartilhe seu desafio com a Sintaxe Digital" class="w-full rounded-xl border border-white/10 bg-[#0A0F1A] px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-[#FF6B00] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]/40"></textarea>
+              </div>
+              <button type="submit" class="w-full rounded-full bg-[#FF6B00] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#FF6B00]/30 transition hover:bg-[#FF6B00]/80">Enviar Mensagem</button>
+            </form>
+          </div>
+
+          <!-- Canais Diretos -->
+          <div class="space-y-6">
+            <div class="rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur">
+              <h3 class="text-2xl font-semibold text-white">Canais Diretos</h3>
+              <p class="mt-2 text-sm text-gray-400">Prefere um contato imediato? Escolha o canal ideal para você.</p>
+              <div class="mt-8 space-y-6">
+                <div class="rounded-xl border border-white/10 bg-[#0A0F1A]/60 p-6">
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <div class="flex items-center gap-3">
+                        <span class="inline-flex rounded-full bg-[#33FF99]/10 p-3 text-[#33FF99]">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.67.15-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.173.198-.297.298-.495.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.21-.242-.579-.487-.501-.669-.51-.173-.009-.372-.011-.571-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.693.625.711.226 1.356.194 1.868.118.569-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.569-.347z" />
+                          </svg>
+                        </span>
+                        <div>
+                          <h4 class="text-lg font-semibold text-white">WhatsApp</h4>
+                          <p class="text-sm text-gray-400">(11) 99999-9999</p>
+                        </div>
+                      </div>
+                      <button class="mt-4 inline-flex items-center gap-2 rounded-full bg-[#33FF99] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#33FF99]/80">
+                        Iniciar Conversa Agora
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L21 10.5m0 0l-3.75 3.75M21 10.5H3" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-[#0A0F1A]/60 p-6">
+                  <div class="flex items-start gap-3">
+                    <span class="inline-flex rounded-full bg-white/10 p-3 text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 8h18a2 2 0 002-2V8a2 2 0 00-2-2H3a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                      </svg>
+                    </span>
+                    <div>
+                      <h4 class="text-lg font-semibold text-white">E-mail Principal</h4>
+                      <p class="text-sm text-gray-400">contato@sintaxedigital.com</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-xl border border-white/10 bg-[#0A0F1A]/60 p-6">
+                  <div class="flex items-start gap-3">
+                    <span class="inline-flex rounded-full bg-white/10 p-3 text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3m6 0a3 3 0 00-3-3m0 0V5m0 6v5m0 0h4.5M12 16H7.5" />
+                      </svg>
+                    </span>
+                    <div>
+                      <h4 class="text-lg font-semibold text-white">Horário de Atendimento</h4>
+                      <p class="text-sm text-gray-400">Seg. a Sex. / 09h às 18h</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-[#050811]">
+      <div class="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="space-y-4">
+          <a href="index.html" class="text-xl font-semibold text-white">Sintaxe Digital</a>
+          <p class="text-sm text-gray-400">Arquitetos de soluções que unem marketing, tecnologia e inteligência para impulsionar seu crescimento.</p>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-white">Links rápidos</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li><a href="index.html" class="transition hover:text-white">Home</a></li>
+            <li><a href="sobre.html" class="transition hover:text-white">Sobre Nós</a></li>
+            <li><a href="marketing.html" class="transition hover:text-white">Marketing Digital</a></li>
+            <li><a href="dev-ia.html" class="transition hover:text-white">Dev &amp; IA</a></li>
+            <li><a href="contato.html" class="transition hover:text-white">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-white">Departamentos</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li>Marketing Digital</li>
+            <li>Desenvolvimento &amp; IA</li>
+            <li>Performance &amp; Dados</li>
+            <li>Experiência do Cliente</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wide text-white">Contato</h4>
+          <ul class="mt-4 space-y-2 text-sm text-gray-400">
+            <li>contato@sintaxedigital.com</li>
+            <li>(11) 99999-9999</li>
+            <li class="flex items-center gap-3 pt-2 text-white">
+              <a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 hover:border-[#33FF99] hover:text-[#33FF99]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.54 6.42a5.93 5.93 0 00-.41-2.18 4.41 4.41 0 00-2.5-2.51 5.94 5.94 0 00-2.18-.4C15.9 1.27 12 1.27 12 1.27s-3.9 0-5.45.06a5.94 5.94 0 00-2.18.41A4.41 4.41 0 001.86 4.24a5.93 5.93 0 00-.41 2.18C1.39 8 1.34 9.71 1.34 11.42v1.16c0 1.71 0 3.42.11 5.05a5.93 5.93 0 00.41 2.18 4.41 4.41 0 002.5 2.51 5.94 5.94 0 002.18.4c1.55.07 5.45.07 5.45.07s3.9 0 5.45-.06a5.94 5.94 0 002.18-.41 4.41 4.41 0 002.5-2.5 5.93 5.93 0 00.41-2.18c.07-1.63.11-3.34.11-5.05v-1.16c0-1.71 0-3.42-.11-5.05zM9.75 15.02V8.48l5.7 3.27z" />
+                </svg>
+              </a>
+              <a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 hover:border-[#33FF99] hover:text-[#33FF99]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.23 5.924c-.793.35-1.644.586-2.538.69a4.479 4.479 0 001.963-2.475 8.934 8.934 0 01-2.828 1.083 4.463 4.463 0 00-7.6 4.07 12.66 12.66 0 01-9.195-4.66 4.455 4.455 0 001.381 5.95 4.423 4.423 0 01-2.022-.558v.057a4.465 4.465 0 003.577 4.376 4.47 4.47 0 01-2.013.076 4.468 4.468 0 004.168 3.103A8.955 8.955 0 012 19.54a12.615 12.615 0 006.84 2.004c8.206 0 12.695-6.8 12.695-12.695 0-.193-.004-.386-.013-.577a9.066 9.066 0 002.23-2.312z" />
+                </svg>
+              </a>
+              <a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 hover:border-[#33FF99] hover:text-[#33FF99]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.04c-5.51 0-9.96 4.45-9.96 9.96 0 4.41 3.6 8.07 8.28 8.87v-6.28H7.9v-2.59h2.42V9.41c0-2.4 1.43-3.72 3.63-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.8h2.66l-.43 2.59h-2.23v6.28c4.68-.8 8.28-4.46 8.28-8.87 0-5.51-4.45-9.96-9.96-9.96z" />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 bg-[#04060d] py-6">
+        <p class="text-center text-xs text-gray-500">&copy; <span id="year"></span> Sintaxe Digital. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  </script>
+</body>
+</html>
